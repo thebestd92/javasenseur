@@ -29,6 +29,9 @@ public class Packet implements PacketIfc {
         return this.data;
     }
     
+    
+    
+    
     public boolean isTimeToLiveOK() {
         if(this.ttl>0){
             return true;

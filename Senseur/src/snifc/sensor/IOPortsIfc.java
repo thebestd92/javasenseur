@@ -29,5 +29,5 @@ public interface IOPortsIfc {
 	 * of the port) is enqueued on the sensor  waiting queue. If the queue is full, the packet is
 	 * destroyed 
 	 */
-	public abstract void getPackets();
+	public abstract PacketIfc getPackets();
 }

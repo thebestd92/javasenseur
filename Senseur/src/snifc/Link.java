@@ -20,6 +20,14 @@ public class Link implements LinkIfc {
     private IOPortsIfc fromPort;
     private IOPortsIfc toPort;
     
+    
+    public void Link(IOPortsIfc fromPort , IOPortsIfc toPort, int temps){
+        
+        this.toPort = toPort;
+        this.fromPort = fromPort;
+        this.linkNumber = temps;
+    }
+    
     public void transmit(PacketIfc p, IOPortsIfc from) {
         
         if ( this.fromPort == from){
