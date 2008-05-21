@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import snifc.PacketIfc;
 
 /**
- *
  * @author bchervet
  */
 public class Sensor implements SensorIfc {
