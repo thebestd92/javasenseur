@@ -37,4 +37,5 @@ public interface PacketIfc extends Identifiable, Comparable  {
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	public abstract int compareTo(Object o);
+        
 }

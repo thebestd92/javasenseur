@@ -25,10 +25,11 @@ public class Captor implements CaptorIfc {
     }
 
     public PacketIfc capture() throws Exception {
-        triggerCapture();
         if(this.isPaquetReady){
             int ttl = 0;int id = 0;
+            
             int data=(int)(Math.random()*200000);
+            System.out.println("    Paquet généré avec data : "+data);
             Packet p=new Packet(ttl,id,data);
             return p;    
             
@@ -37,5 +38,7 @@ public class Captor implements CaptorIfc {
         }
         
     }
+    
+
 
 }

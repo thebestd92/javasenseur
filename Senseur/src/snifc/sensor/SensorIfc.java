@@ -1,20 +1,3 @@
-/*
- * Created on 13 f�vr. 2004
- *
-  * Copyright (C) 2004  St�phan Fr�not, St�phane Ub�da D�partement T�l�com, INSA Lyon
- *
- * This program is licensed under the Apache Software License
- * version 1.1; refer to the ASL-LICENSE.txt file included with
- * this program for details.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * Contact: Stephane Frenot, stephane.frenot@insa-lyon.fr
- * Contributor(s): Stephane Frenot, St�phane Ub�da
- *
- */
 package snifc.sensor;
 
 /**
@@ -52,11 +35,11 @@ public interface SensorIfc {
 	 * 
 	 */
 	public abstract void activateCaptor();
-    /**
-     * The incoming packets are queued after the captor. Every packet on each link is get and 
-     * eventually put in the queue.  
-     *
-     */
+       /**
+        * The incoming packets are queued after the captor. Every packet on each link is get and 
+        * eventually put in the queue.  
+        *
+        */
 	public abstract void activatePort();
 	/**
 	 * That method simulates the main function of the sensor. The activateQueue concretize the
