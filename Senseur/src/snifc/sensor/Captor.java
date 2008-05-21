@@ -6,7 +6,7 @@
 package snifc.sensor;
 
 import snifc.PacketIfc;
-import snifc.Main;
+import snifc.Packet;
 /**
  *
  * @author bchervet
@@ -27,7 +27,10 @@ public class Captor implements CaptorIfc {
     public PacketIfc capture() throws Exception {
         triggerCapture();
         if(this.isPaquetReady){
-            Packet p=new Packet
+            int ttl = 0;int id = 0;
+            int data=(int)(Math.random()*200000);
+            Packet p=new Packet(ttl,id,data);
+            return p;    
             
         }else{
             throw new Exception("Paquet non prêt");
