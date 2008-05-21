@@ -43,8 +43,8 @@ public class Sensor implements SensorIfc {
     }
 
     public void activatePort() {
-
-      
+        
+       this.ioPorts.getPackets();
     }
 
     public void activateQueue() {
