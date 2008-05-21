@@ -10,7 +10,13 @@ package snifc;
  * @author mdeclercq
  */
 public class Main {
-
+    
+    private static double randomPercentage;
+    
+    public static double getrandomPercentage(){
+        return randomPercentage;
+    }
+    
     /**
      * @param args the command line arguments
      */
