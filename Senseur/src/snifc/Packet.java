@@ -13,7 +13,22 @@ public class Packet implements PacketIfc {
     
     private int ttl;
     private int id;
-
+    private int data;
+    
+    public Packet (int ttl, int id, int data){
+        this.ttl=ttl;
+        this.id=id;
+        this.data=data;
+    }
+    
+    public void setData(int data){
+        this.data=data;
+    }
+    
+    public int getData(){
+        return this.data;
+    }
+    
     public boolean isTimeToLiveOK() {
         if(this.ttl>0){
             return true;
