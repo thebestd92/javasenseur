@@ -20,19 +20,36 @@ public class Queue implements QueueIfc {
     public Queue(int QUEUE_SIZE){
         this.QUEUE_SIZE=QUEUE_SIZE;
         this.queue=new Vector(QUEUE_SIZE);
+       
     }        
     
     public void enQueue(PacketIfc p) {
-        if(queue.size()<QUEUE_SIZE){
+        System.out.println("Paquet ajouté à la queue");
+        System.out.println("La queue comporte "+queue.size()+" paquets");
+ 
             queue.add(p);
-        }else{
-            System.out.println("Queue pleine, objet non ajoutée");
-        }
+
     }
 
     public PacketIfc deQueue() {
-        return (PacketIfc) queue.firstElement();
+        PacketIfc p= (PacketIfc) queue.firstElement();
+        System.out.println("Paquet déqueutté");
+        System.out.println(p);
+        return p;
 
+    }
+    
+    public int getSize(){
+
+        return queue.size();
+    }
+    
+    public boolean isFull(){
+        if(this.getSize()>=this.QUEUE_SIZE){
+          return true;  
+        }else{
+            return false;
+        }
     }
 
 }

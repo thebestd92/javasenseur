@@ -11,11 +11,23 @@ package snifc;
  */
 public class Packet implements PacketIfc {
     
+    private int idEmetteur;
     private int ttl;
     private int id;
     private int data;
     
-    public Packet (int ttl, int id, int data){
+    public int getIdEmetteur(){
+        return this.idEmetteur;
+    }
+    
+    public Packet (int ttl, int id, int data , int idemetteur){
+        this.ttl=ttl;
+        this.id=id;
+        this.data=data;
+        this.idEmetteur=idemetteur;
+    }
+    
+    public Packet (int ttl, int id, int data ){
         this.ttl=ttl;
         this.id=id;
         this.data=data;
@@ -28,8 +40,7 @@ public class Packet implements PacketIfc {
     public int getData(){
         return this.data;
     }
-    
-    
+       
     
     
     public boolean isTimeToLiveOK() {
@@ -48,13 +59,17 @@ public class Packet implements PacketIfc {
      throw e;
      }
     }
-
+        
     public void setId(int id) {
         this.id=id;
     }
     
     public int getId() {
         return this.id;
+    }
+    
+    public String toString(){
+        return "---Paquet--- \n"+"    ttl: "+this.ttl+"\n    id: "+this.id+"\n    data: "+this.data;
     }
 
 }
