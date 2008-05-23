@@ -20,16 +20,18 @@ import snifc.Simulator;
 
 public class Memory implements MemoryIfc{
 
+    public static int NB_MEMORY;
+    private Sensor sensor;
     private Vector pVector;
     private Vector indexVector;
+       
     
-    
-    
-   public Memory(){
-   
+   public Memory(Sensor s){
+        this.sensor=s;
         this.pVector= new Vector();
-        this.pVector.setSize(1);
+        this.indexVector=new Vector();
         System.out.println("Je viens de créer un vecteur");
+        
    }
    
    public boolean isPresent(PacketIfc p){

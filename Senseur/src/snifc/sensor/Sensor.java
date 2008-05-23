@@ -16,7 +16,7 @@ public class Sensor implements SensorIfc {
     
     private Captor captor;
     private IOPorts ioPorts;
-    private Queue queue;
+    public Queue queue;
     private Memory memory;
     private boolean isNewCaptureReady;
     
@@ -43,8 +43,7 @@ public class Sensor implements SensorIfc {
     }
 
     public void activatePort() {
-        
-       this.ioPorts.getPackets();
+        this.ioPorts.getPackets();
     }
 
     public void activateQueue() {

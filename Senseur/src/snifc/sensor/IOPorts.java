@@ -9,6 +9,7 @@ import snifc.LinkIfc;
 import snifc.PacketIfc;
 import java.util.Vector;
 import snifc.Link;
+import snifc.Packet;
 import snifc.Simulator;
 /**
  *
@@ -18,32 +19,37 @@ import snifc.Simulator;
 
 public class IOPorts implements IOPortsIfc{
     
+private static int NB_PORT=8;
+
 private int id;
+private Sensor sensor;
 private Vector lVector;
-private Queue queueIOPort;
+
 private int linkIdWriter;
 
-    public void IOPorts(int id, Queue queueIOPort){
-        
-        this.id = id;
-        this.lVector = new Vector();
-        this.queueIOPort = queueIOPort;
+    public void IOPorts(Sensor s){
+        this.sensor=s;
+        this.lVector = new Vector(8);
         this.linkIdWriter = 0;
     }
 
     public void addLink(LinkIfc l) throws Exception {
+        if(lVector.size()<NB_PORT){
         System.out.println("On ajoute un lien au port");
-        this.lVector.add(l);
+        this.lVector.add(l);}else{
+            throw new Exception("Nb de port max atteint");
+        }
   
     }
 
     public void writePacket(PacketIfc p) {
         
        System.out.println("On ecrit le paquet dans un lien");
-        for(int i=0; i< this.lVector.size(); i++){
-            ((Link)this.lVector.get(i)).transmit(p, this);
-        }
-  
+       if(p.isTimeToLiveOK()){ 
+           for(int i=0; i< this.lVector.size(); i++){
+                ((Link)this.lVector.get(i)).transmit(new Packet(p), this);
+            }
+       }
     }
 
     public void getPackets() {
@@ -51,12 +57,11 @@ private int linkIdWriter;
         System.out.println("On fait un get packet");
         for(int i=0; i< this.lVector.size(); i++){
 
-          if (this.queueIOPort.isFull()){
-        }
-        else{
-        this.queueIOPort.enQueue(((Link)this.lVector.get(i)).getPendingPacket(this));
-                
-        }
+              if (this.sensor.queue.isFull()){
+            }
+            else{
+                this.sensor.queue.enQueue(((Link)this.lVector.get(i)).getPendingPacket(this));
+            }
           
         }
         

@@ -14,34 +14,34 @@ public class Packet implements PacketIfc {
     private int idEmetteur;
     private int ttl;
     private int id;
-    private int data;
+   
+    public static int NBID=0;
+    
+    public Packet(int Emetteurid, int ttl){
+        idEmetteur = Emetteurid;
+        id=NBID+1;
+        this.ttl=ttl;
+    }
+    public Packet(Packet pbis){
+        Packet p= new Packet(pbis.idEmetteur,pbis.ttl);
+        p.id=pbis.id;
+    }
+    public Packet(PacketIfc pIfc){
+        Packet p = (Packet) pIfc;
+        this.idEmetteur=p.idEmetteur;
+        this.ttl=p.id;
+        this.id=p.NBID;
+    }
     
     public int getIdEmetteur(){
         return this.idEmetteur;
     }
     
-    public Packet (int ttl, int id, int data , int idemetteur){
+    public Packet (int ttl, int id, int idemetteur){
         this.ttl=ttl;
         this.id=id;
-        this.data=data;
         this.idEmetteur=idemetteur;
     }
-    
-    public Packet (int ttl, int id, int data ){
-        this.ttl=ttl;
-        this.id=id;
-        this.data=data;
-    }
-    
-    public void setData(int data){
-        this.data=data;
-    }
-    
-    public int getData(){
-        return this.data;
-    }
-       
-    
     
     public boolean isTimeToLiveOK() {
         if(this.ttl>0){
@@ -69,7 +69,7 @@ public class Packet implements PacketIfc {
     }
     
     public String toString(){
-        return "---Paquet--- \n"+"    ttl: "+this.ttl+"\n    id: "+this.id+"\n    data: "+this.data;
+        return "---Paquet--- \n"+"    ttl: "+this.ttl+"\n    id: "+this.id+"\n";
     }
 
 }

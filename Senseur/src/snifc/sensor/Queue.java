@@ -13,30 +13,32 @@ import java.util.Vector;
  * @author bchervet
  */
 public class Queue implements QueueIfc {
-    private int idSensor;
-    private final int QUEUE_SIZE;
+
+    private final int QUEUE_SIZE=3;
     private Vector queue;
     
-    public Queue(int QUEUE_SIZE){
-        this.QUEUE_SIZE=QUEUE_SIZE;
+    public Queue(){
         this.queue=new Vector();
         this.queue.setSize(0);
        
     }        
     
     public void enQueue(PacketIfc p) {
+        if(isFull()==false){
         System.out.println("Paquet ajouté à la queue");
         System.out.println("La queue comporte "+queue.size()+" paquets");
-        if(isFull()==false){
+        
             queue.add(p);
         }    
     }
 
     public PacketIfc deQueue() {
-        PacketIfc p=(PacketIfc) queue.firstElement();
-        queue.remove(0);
-        System.out.println("Paquet déqueutté");
-        System.out.println(p);
+        PacketIfc p= null;
+        if(queue.size()>0){
+            p=(PacketIfc) queue.firstElement();
+            queue.remove(0);
+            System.out.println("Paquet déqueutté");
+            System.out.println(p);}
         return p;
 
     }
