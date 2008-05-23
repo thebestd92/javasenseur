@@ -14,6 +14,11 @@ import snifc.Packet;
 public class Captor implements CaptorIfc {
 
     private boolean isPaquetReady;
+    private int id;
+    
+    public Captor(int id){
+        this.id=id;
+    }
     
     public void triggerCapture() {
         double rand=Math.random();
@@ -26,11 +31,8 @@ public class Captor implements CaptorIfc {
 
     public PacketIfc capture() throws Exception {
         if(this.isPaquetReady){
-            int ttl = 0;int id = 0;
-            
-            int data=(int)(Math.random()*200000);
-            System.out.println("    Paquet généré avec data : "+data);
-            Packet p=new Packet(ttl,id,data);
+            int ttl = 10;int Emetteurid = 0;
+            Packet p=new Packet(Emetteurid,ttl);
             return p;    
             
         }else{

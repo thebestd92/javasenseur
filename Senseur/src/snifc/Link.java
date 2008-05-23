@@ -13,7 +13,8 @@ import snifc.sensor.IOPortsIfc;
  */
 public class Link implements LinkIfc {
 
-    public int linkNumber;
+    public static int LINK_NUMBER=0;
+    private int id;
     /*2 packets and 2 ports are created */
     private PacketIfc fromPacket;
     private PacketIfc toPacket;
@@ -25,31 +26,33 @@ public class Link implements LinkIfc {
         
         this.toPort = toPort;
         this.fromPort = fromPort;
-        this.linkNumber = temps;
+        this.LINK_NUMBER++;
+        this.id = LINK_NUMBER;
     }
     
     public void transmit(PacketIfc p, IOPortsIfc from) {
         
         if ( this.fromPort == from){
             this.fromPacket = p;
-        }else{
+        }else if(this.toPort== from){
             this.toPacket = p;    
         }        
      
     }
 
     public PacketIfc getPendingPacket(IOPortsIfc s) {
-       if ( this.fromPort == s){
-         return this.fromPacket;  
-       }else{
-         return this.toPacket;  
+       PacketIfc returnPacket;
+        if ( this.fromPort == s){
+         returnPacket= this.fromPacket;  
+       }else if (this.toPort ==s){
+         returnPacket= this.toPacket;  
        }
-   
+       return returnPacket;
     }
 
     public int getId() {
         
-        return this.linkNumber;
+        return this.id;
         
         
     }
