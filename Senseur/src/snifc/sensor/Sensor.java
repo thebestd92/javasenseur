@@ -19,7 +19,15 @@ public class Sensor implements SensorIfc {
     public Queue queue;
     private Memory memory;
     private boolean isNewCaptureReady;
+    public static int nbSensor;
+    private int idSensor;
     
+    public Sensor(){
+        this.captor=new Captor();
+        this.ioPorts=new IOPorts(this);
+        this.queue=new Queue();
+        this.memory=new Memory();
+    }
     public void simulateCapture() {
         
         double rand=Math.random();
@@ -31,9 +39,9 @@ public class Sensor implements SensorIfc {
     }
 
     public void activateCaptor(){
-        if(isNewCaptureReady){
-            try {
-                captor.triggerCapture();
+        captor.triggerCapture();
+        if(captor.isPaquetReady()){
+            try {                
                 queue.enQueue(captor.capture());
             } catch (Exception ex) {
                 Logger.getLogger(Sensor.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,14 +55,15 @@ public class Sensor implements SensorIfc {
     }
 
     public void activateQueue() {
-        PacketIfc p=queue.deQueue();
-        memory.store(p);
-        ioPorts.writePacket(p);
-        
+        if(queue.getSize()>0){
+            PacketIfc p=queue.deQueue();
+            memory.store(p);
+            ioPorts.writePacket(p);
+        }
     }
 
     public IOPortsIfc getPort() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return ioPorts;
     }
 
 }

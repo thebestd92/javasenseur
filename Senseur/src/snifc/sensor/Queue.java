@@ -7,6 +7,7 @@ package snifc.sensor;
 
 import snifc.PacketIfc;
 import java.util.Vector;
+import snifc.Simulator;
 
 /**
  *
@@ -14,10 +15,11 @@ import java.util.Vector;
  */
 public class Queue implements QueueIfc {
 
-    private final int QUEUE_SIZE=3;
+    private int queueSize;
     private Vector queue;
     
     public Queue(){
+        this.queueSize=Simulator.QUEUE_SIZE;
         this.queue=new Vector();
         this.queue.setSize(0);
        
@@ -49,7 +51,7 @@ public class Queue implements QueueIfc {
     }
     
     public boolean isFull(){
-        if(this.getSize()>=this.QUEUE_SIZE){
+        if(this.getSize()>=this.queueSize){
           return true;  
         }else{
             return false;

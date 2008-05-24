@@ -5,6 +5,8 @@
 
 package snifc;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import snifc.sensor.IOPortsIfc;
 
 /**
@@ -20,18 +22,28 @@ public class Link implements LinkIfc {
     private PacketIfc toPacket;
     private IOPortsIfc fromPort;
     private IOPortsIfc toPort;
+
     
     
-    public void Link(IOPortsIfc fromPort , IOPortsIfc toPort, int temps){
-        
-        this.toPort = toPort;
-        this.fromPort = fromPort;
-        this.LINK_NUMBER++;
-        this.id = LINK_NUMBER;
+    Link(IOPortsIfc fromPort , IOPortsIfc toPort){
+        try {
+
+            this.toPort = toPort;
+            this.fromPort = fromPort;
+            LINK_NUMBER++;
+            this.id = LINK_NUMBER;
+            fromPort.addLink(this);
+            toPort.addLink(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Link.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void transmit(PacketIfc p, IOPortsIfc from) {
-        
+        System.out.println("Transmission en cours");
+        System.out.println("Paquet: "+p);
+        System.out.println("Emetteur: "+from);
+        Packet.NB_TRANS++;
         if ( this.fromPort == from){
             this.fromPacket = p;
         }else if(this.toPort== from){
@@ -41,7 +53,7 @@ public class Link implements LinkIfc {
     }
 
     public PacketIfc getPendingPacket(IOPortsIfc s) {
-       PacketIfc returnPacket;
+       PacketIfc returnPacket=null;
         if ( this.fromPort == s){
          returnPacket= this.fromPacket;  
        }else if (this.toPort ==s){

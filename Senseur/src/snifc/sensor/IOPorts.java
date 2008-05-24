@@ -27,10 +27,12 @@ private Vector lVector;
 
 private int linkIdWriter;
 
-    public void IOPorts(Sensor s){
+    
+    public IOPorts(Sensor s){
         this.sensor=s;
-        this.lVector = new Vector(8);
+        this.lVector = new Vector(NB_PORT);
         this.linkIdWriter = 0;
+
     }
 
     public void addLink(LinkIfc l) throws Exception {
@@ -44,9 +46,10 @@ private int linkIdWriter;
 
     public void writePacket(PacketIfc p) {
         
-       System.out.println("On ecrit le paquet dans un lien");
+       System.out.println("Ecriture des paquets ");
        if(p.isTimeToLiveOK()){ 
            for(int i=0; i< this.lVector.size(); i++){
+               System.out.println("Envoie d'un paquet dans le lien : "+this.lVector.get(i));
                 ((Link)this.lVector.get(i)).transmit(new Packet(p), this);
             }
        }
@@ -54,13 +57,20 @@ private int linkIdWriter;
 
     public void getPackets() {
         
-        System.out.println("On fait un get packet");
+        System.out.println("Get Packet");
+        System.out.println("lVector size : "+this.lVector.size());
         for(int i=0; i< this.lVector.size(); i++){
-
+            System.out.println("Senseur queue pleine"+this.sensor.queue.isFull());
               if (this.sensor.queue.isFull()){
             }
             else{
-                this.sensor.queue.enQueue(((Link)this.lVector.get(i)).getPendingPacket(this));
+                Packet p=(Packet)(((Link)this.lVector.get(i)).getPendingPacket(this));
+                if(p!=null){
+                    System.out.println("Reception du paquet suivant par lien");
+                    p.decremTtl();
+                    System.out.println(p);
+                    this.sensor.queue.enQueue(p);
+                }
             }
           
         }
