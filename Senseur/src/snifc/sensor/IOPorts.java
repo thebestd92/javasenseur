@@ -60,15 +60,15 @@ private int linkIdWriter;
         System.out.println("Get Packet");
         System.out.println("lVector size : "+this.lVector.size());
         for(int i=0; i< this.lVector.size(); i++){
-            System.out.println("Senseur queue pleine"+this.sensor.queue.isFull());
+
               if (this.sensor.queue.isFull()){
             }
             else{
                 Packet p=(Packet)(((Link)this.lVector.get(i)).getPendingPacket(this));
                 if(p!=null){
                     System.out.println("Reception du paquet suivant par lien");
+                    System.out.println("    :"+p);
                     p.decremTtl();
-                    System.out.println(p);
                     this.sensor.queue.enQueue(p);
                 }
             }

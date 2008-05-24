@@ -28,9 +28,10 @@ public class Queue implements QueueIfc {
     public void enQueue(PacketIfc p) {
         if(isFull()==false){
         System.out.println("Paquet ajouté à la queue");
+        queue.add(p);
         System.out.println("La queue comporte "+queue.size()+" paquets");
         
-            queue.add(p);
+            
         }    
     }
 

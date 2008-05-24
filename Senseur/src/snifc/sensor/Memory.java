@@ -48,9 +48,9 @@ public class Memory implements MemoryIfc{
         
         if(this.isPresent(p)==false){
             if (this.pVector.capacity() <= Simulator.MEMORY_SIZE ){
-
                 this.pVector.addElement(p);
-                System.out.println("La taille de mon vecteur est : " + this.pVector.size());
+                System.out.println("Stockage d'un paquet en mémoire");
+                System.out.println("Paquet: "+p);
                 return true;
             } else 
             {
@@ -61,6 +61,7 @@ public class Memory implements MemoryIfc{
                 return false;
             }
         }else{
+            System.out.println("Paquet déjà présent en mémoire");
             return false;
         }
 
