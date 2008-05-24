@@ -20,14 +20,14 @@ import snifc.Simulator;
 
 public class Memory implements MemoryIfc{
 
-    public static int NB_MEMORY;
-    private Sensor sensor;
+    public int memorySize;
     private Vector pVector;
     private Vector indexVector;
        
     
-   public Memory(Sensor s){
-        this.sensor=s;
+   public Memory(){
+       
+        this.memorySize=Simulator.MEMORY_SIZE;
         this.pVector= new Vector();
         this.indexVector=new Vector();
         System.out.println("Je viens de créer un vecteur");

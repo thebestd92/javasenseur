@@ -7,6 +7,7 @@ package snifc.sensor;
 
 import snifc.PacketIfc;
 import snifc.Packet;
+import snifc.Simulator;
 /**
  *
  * @author bchervet
@@ -14,13 +15,19 @@ import snifc.Packet;
 public class Captor implements CaptorIfc {
 
     private boolean isPaquetReady;
-    private int id;
-    
-    public Captor(int id){
-        this.id=id;
+
+
+    Captor() {
+      
     }
     
+    public boolean isPaquetReady(){
+        return isPaquetReady;
+    }
+
+    
     public void triggerCapture() {
+        System.out.println("Triggering d'une capture");
         double rand=Math.random();
         if(rand>0.5){
            this.isPaquetReady=true; 
@@ -31,8 +38,10 @@ public class Captor implements CaptorIfc {
 
     public PacketIfc capture() throws Exception {
         if(this.isPaquetReady){
-            int ttl = 10;int Emetteurid = 0;
+            
+            int ttl = Simulator.TTL;int Emetteurid = 0;
             Packet p=new Packet(Emetteurid,ttl);
+            System.out.println("Capture d'un paquet :"+p.toString());
             return p;    
             
         }else{
