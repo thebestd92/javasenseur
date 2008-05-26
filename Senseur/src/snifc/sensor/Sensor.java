@@ -5,8 +5,6 @@
 
 package snifc.sensor;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import snifc.PacketIfc;
 
 /**
@@ -16,13 +14,16 @@ public class Sensor implements SensorIfc {
     
     private Captor captor;
     private IOPorts ioPorts;
-    public Queue queue;
+    private Queue queue;
     private Memory memory;
     private boolean isNewCaptureReady;
-    public static int nbSensor;
+    public static int NB_SENSOR;
     private int idSensor;
     
     public Sensor(){
+        
+        NB_SENSOR++;
+        this.idSensor=NB_SENSOR;
         this.captor=new Captor();
         this.ioPorts=new IOPorts(this);
         this.queue=new Queue();
@@ -44,7 +45,7 @@ public class Sensor implements SensorIfc {
             try {                
                 queue.enQueue(captor.capture());
             } catch (Exception ex) {
-                Logger.getLogger(Sensor.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Impossible d'ajouter un nouveau message à la queue");
             }
         }
 
@@ -61,9 +62,23 @@ public class Sensor implements SensorIfc {
             ioPorts.writePacket(p);
         }
     }
+    
+    public void enQueue(PacketIfc p){
+        this.queue.enQueue(p);
+    }
+    
+    public boolean isQueueFull(){
+        return this.queue.isFull();
+    }
 
     public IOPortsIfc getPort() {
        return ioPorts;
+    }
+    
+    @Override
+    public String toString(){
+        return "    Sensor id: "+this.idSensor+"";
+                
     }
 
 }
