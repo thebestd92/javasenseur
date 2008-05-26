@@ -38,9 +38,7 @@ public class Captor implements CaptorIfc {
 
     public PacketIfc capture() throws Exception {
         if(this.isPaquetReady){
-            
-            int ttl = Simulator.TTL;int Emetteurid = 0;
-            Packet p=new Packet(Emetteurid,ttl);
+            Packet p=new Packet();
             System.out.println("Capture d'un paquet :"+p.toString());
             return p;    
             

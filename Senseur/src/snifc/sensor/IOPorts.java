@@ -10,7 +10,9 @@ import snifc.PacketIfc;
 import java.util.Vector;
 import snifc.Link;
 import snifc.Packet;
-import snifc.Simulator;
+
+
+
 /**
  *
  * @author mdeclercq
@@ -20,11 +22,8 @@ import snifc.Simulator;
 public class IOPorts implements IOPortsIfc{
     
 private static int NB_PORT=8;
-
-private int id;
 private Sensor sensor;
 private Vector lVector;
-
 private int linkIdWriter;
 
     
@@ -37,19 +36,20 @@ private int linkIdWriter;
 
     public void addLink(LinkIfc l) throws Exception {
         if(lVector.size()<NB_PORT){
-        System.out.println("On ajoute un lien au port");
+        System.out.println("---On ajoute un lien au port");
         this.lVector.add(l);}else{
-            throw new Exception("Nb de port max atteint");
+            throw new Exception("!!!Nb de port max atteint");
         }
   
     }
 
     public void writePacket(PacketIfc p) {
         
-       System.out.println("Ecriture des paquets ");
+       System.out.println("---Ecriture des paquets ");
        if(p.isTimeToLiveOK()){ 
            for(int i=0; i< this.lVector.size(); i++){
-               System.out.println("Envoie d'un paquet dans le lien : "+this.lVector.get(i));
+               Link l=(Link) this.lVector.get(i);
+               System.out.println("---Envoie d'un paquet dans le lien : "+l.toString());
                 ((Link)this.lVector.get(i)).transmit(new Packet(p), this);
             }
        }
@@ -57,24 +57,28 @@ private int linkIdWriter;
 
     public void getPackets() {
         
-        System.out.println("Get Packet");
-        System.out.println("lVector size : "+this.lVector.size());
+        System.out.println("---Get Packet");
         for(int i=0; i< this.lVector.size(); i++){
 
-              if (this.sensor.queue.isFull()){
+              if (this.sensor.isQueueFull()){
             }
             else{
                 Packet p=(Packet)(((Link)this.lVector.get(i)).getPendingPacket(this));
                 if(p!=null){
-                    System.out.println("Reception du paquet suivant par lien");
-                    System.out.println("    :"+p);
+                    System.out.println("---Reception du paquet suivant par lien");
+                    System.out.println("        :"+p);
                     p.decremTtl();
-                    this.sensor.queue.enQueue(p);
+                    this.sensor.enQueue(p);
                 }
             }
           
         }
         
+    }
+    
+  
+    public String toString(){
+        return ""+this.sensor.toString();
     }
 
 }

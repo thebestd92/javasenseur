@@ -30,7 +30,7 @@ public class Memory implements MemoryIfc{
         this.memorySize=Simulator.MEMORY_SIZE;
         this.pVector= new Vector();
         this.indexVector=new Vector();
-        System.out.println("Je viens de créer un vecteur");
+        
         
    }
    

@@ -5,8 +5,6 @@
 
 package snifc;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import snifc.sensor.IOPortsIfc;
 
 /**
@@ -27,6 +25,9 @@ public class Link implements LinkIfc {
     
     Link(IOPortsIfc fromPort , IOPortsIfc toPort){
         try {
+            System.out.println("---Création d'un lien");
+            System.out.println("    Port from: "+fromPort);
+            System.out.println("    Port to: "+toPort);
 
             this.toPort = toPort;
             this.fromPort = fromPort;
@@ -35,14 +36,14 @@ public class Link implements LinkIfc {
             fromPort.addLink(this);
             toPort.addLink(this);
         } catch (Exception ex) {
-            Logger.getLogger(Link.class.getName()).log(Level.SEVERE, null, ex);
+           System.out.println("!!!Impossible d'ajouter les ports au lien");
         }
     }
     
     public void transmit(PacketIfc p, IOPortsIfc from) {
-        System.out.println("Transmission en cours");
-        System.out.println("Paquet: "+p);
-        System.out.println("Emetteur: "+from);
+        System.out.println("---Transmission d'un paquet");
+        System.out.println("    Paquet: "+p.toString());
+        System.out.println("    Emetteur: "+from.toString());
         Packet.NB_TRANS++;
         if ( this.fromPort == from){
             this.fromPacket = p;
@@ -59,6 +60,11 @@ public class Link implements LinkIfc {
        }else if (this.toPort ==s){
          returnPacket= this.toPacket;  
        }
+       if(returnPacket==null){
+           System.out.println("---Récupération d'un paquet");
+           System.out.println("     Paquet: "+returnPacket);
+           System.out.println("     Port: "+ s.toString());
+       }
        return returnPacket;
     }
 
@@ -67,6 +73,10 @@ public class Link implements LinkIfc {
         return this.id;
         
         
+    }
+    
+    public String toString(){
+        return "de "+this.fromPort+"à "+this.toPort;
     }
 
 }
