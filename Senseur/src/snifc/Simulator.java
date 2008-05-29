@@ -6,9 +6,6 @@
 package snifc;
 
 import java.util.Vector;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import snifc.sensor.Sensor;
 
 /**
@@ -181,20 +178,6 @@ public  class Simulator implements SimulatorIfc {
      
         
     }
-    
-   /* public static void main(String[] args){
-        try {
-            
-            Simulator s = new Simulator();
-            s.topologie = 3;
-            s.createSensors();
-            s.linkSensors();
-            s.runSensors();
-            s.showStat();
-        } catch (Exception ex) {
-            Logger.getLogger(Simulator.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-      
         
     }
 
